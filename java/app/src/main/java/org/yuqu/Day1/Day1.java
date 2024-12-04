@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-
 public class Day1 {
     public static void main(String[] args) throws IOException, URISyntaxException {
         System.out.println("Result: " + solve("java/app/src/main/resources/input.txt"));
@@ -14,7 +13,6 @@ public class Day1 {
 
     public static int solve(String filePath) throws IOException, URISyntaxException {
         var input = readInput(filePath);
-
 
         Arrays.sort(input[0]);
         Arrays.sort(input[1]);

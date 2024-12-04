@@ -5,14 +5,16 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Day1 {
     public static void main(String[] args) throws IOException, URISyntaxException {
-        System.out.println("Result: " + solve("java/app/src/main/resources/input.txt"));
+        System.out.println("Total distance: " + part1("java/app/src/main/resources/input-part1.txt"));
+        System.out.println("Total similarity score: " + part2("java/app/src/main/resources/input-part2.txt"));
     }
 
-    public static int solve(String filePath) throws IOException, URISyntaxException {
-        var input = readInput(filePath);
+    public static int part1(final String filePath) throws IOException, URISyntaxException {
+        final var input = readInput(filePath);
 
         Arrays.sort(input[0]);
         Arrays.sort(input[1]);
@@ -23,6 +25,28 @@ public class Day1 {
         }
 
         return total;
+    }
+
+    public static int part2(final String filePath) throws IOException, URISyntaxException {
+        final var input = readInput(filePath);
+
+        final var countMap = new HashMap<Integer, Integer>();
+        for (int i = 0; i < input[1].length; i++) {
+            var value = input[1][i];
+            if (countMap.containsKey(value)) {
+                countMap.put(value, countMap.get(value) + 1);
+            } else {
+                countMap.put(value, 1);
+            }
+        }
+
+        var score = 0;
+        for (int i = 0; i < input[0].length; i++) {
+            var value = input[0][i];
+            score += value * (countMap.containsKey(value) ? countMap.get(value) : 0);
+        }
+
+        return score;
     }
 
     private static int[][] readInput(String filePath) throws IOException, URISyntaxException {

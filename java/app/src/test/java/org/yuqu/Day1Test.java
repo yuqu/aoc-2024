@@ -11,14 +11,14 @@ import org.yuqu.Day1.Day1;
 public class Day1Test {
     @Test
     void test_part1() throws IOException, URISyntaxException {
-        var result = Day1.part1("src/test/resources/input-part1.txt");
+        var result = Day1.part1("src/test/resources/Day1/input-part1.txt");
 
         assertEquals(11, result);
     }
 
     @Test
     void test_part2() throws IOException, URISyntaxException {
-        var result = Day1.part2("src/test/resources/input-part2.txt");
+        var result = Day1.part2("src/test/resources/Day2/input-part2.txt");
 
         assertEquals(31, result);
     }

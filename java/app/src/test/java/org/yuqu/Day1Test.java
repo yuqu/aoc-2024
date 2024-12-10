@@ -18,7 +18,7 @@ public class Day1Test {
 
     @Test
     void test_part2() throws IOException, URISyntaxException {
-        var result = Day1.part2("src/test/resources/Day2/input-part2.txt");
+        var result = Day1.part2("src/test/resources/Day1/input-part2.txt");
 
         assertEquals(31, result);
     }

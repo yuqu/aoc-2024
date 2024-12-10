@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Day1 {
     public static void main(String[] args) throws IOException, URISyntaxException {
         System.out.println("Total distance: " + part1("java/app/src/main/resources/Day1/input-part1.txt"));
-        System.out.println("Total similarity score: " + part2("java/app/src/main/resources/Day2/input-part2.txt"));
+        System.out.println("Total similarity score: " + part2("java/app/src/main/resources/Day1/input-part2.txt"));
     }
 
     public static int part1(final String filePath) throws IOException, URISyntaxException {

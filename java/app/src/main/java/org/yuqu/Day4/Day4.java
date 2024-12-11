@@ -11,7 +11,8 @@ public class Day4 {
     public static void main(String[] args) throws IOException, URISyntaxException {
         var inputFile = "java/app/src/main/resources/Day4/input.txt";
 
-        System.out.println("Count: " + part1(inputFile));
+        System.out.println("Part 1: " + part1(inputFile));
+        System.out.println("Part 2: " + part2(inputFile));
 
     }
 
@@ -33,6 +34,35 @@ public class Day4 {
         }
 
         return count;
+    }
+
+    public static int part2(final String filePath) throws IOException, URISyntaxException {
+        final var input = readInput(filePath);
+
+        int count = 0;
+        for (int i = 0; i < input.size() - 2; i++) {
+            for (int j = 0; j < input.get(i).size() - 2; j++) {
+                var matrix = getSubMatrix(input, i, j);
+                var innerCount = 0;
+                innerCount += search(matrix, 0, 0, Xmas.M, Direction.DOWN_RIGHT);
+                innerCount += search(matrix, 0, 2, Xmas.M, Direction.DOWN_LEFT);
+                innerCount += search(matrix, 2, 0, Xmas.M, Direction.UP_RIGHT);
+                innerCount += search(matrix, 2, 2, Xmas.M, Direction.UP_LEFT);
+
+                if (innerCount >= 2) {
+                    count += 1;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static List<List<Character>> getSubMatrix(List<List<Character>> input, int i, int j) {
+        return input.subList(i, i + 3)
+                .stream()
+                .map(row -> row.subList(j, j + 3))
+                .toList();
     }
 
     private enum Xmas {

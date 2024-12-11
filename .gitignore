@@ -28,3 +28,6 @@ replay_pid*
 .vscode
 .idea
 .DS_Store
+
+# Do not track input files
+**/main/**/*.txt

@@ -13,6 +13,7 @@ public class Day7 {
         var inputFile = "java/app/src/main/resources/Day7/input.txt";
 
         System.out.println("Part 1: " + part1(inputFile));
+        System.out.println("Part 2: " + part2(inputFile));
     }
 
     public static long part1(final String filePath) throws IOException, URISyntaxException {
@@ -23,14 +24,8 @@ public class Day7 {
         long total = 0L;
         for (final Equation equation : equations) {
             var permutations = generatePermutationsIterative(possibleOps, equation.numbers.size() - 1, state);
-            for (int i = 0; i < permutations.size(); i++) {
-                var operators = permutations.get(i);
-                long calculatedValue = equation.numbers.getFirst();
-                for (int k = 1; k < equation.numbers.size(); k++) {
-                    calculatedValue = operators.get(k - 1) == Operator.ADD ?
-                            calculatedValue + equation.numbers.get(k) :
-                            calculatedValue * equation.numbers.get(k);
-                }
+            for (List<Operator> permutation : permutations) {
+                long calculatedValue = getCalculatedValue(equation, permutation);
                 if (calculatedValue == equation.finalValue) {
                     total += equation.finalValue;
                     break;
@@ -39,6 +34,38 @@ public class Day7 {
         }
         return total;
     }
+
+    public static long part2(final String filePath) throws IOException, URISyntaxException {
+        final var equations = readInput(filePath);
+
+        Operator[] possibleOps = {Operator.ADD, Operator.MULTIPLY, Operator.CONCAT};
+        Map<Integer, List<List<Operator>>> state = new HashMap<>();
+        long total = 0L;
+        for (final Equation equation : equations) {
+            var permutations = generatePermutationsIterative(possibleOps, equation.numbers.size() - 1, state);
+            for (List<Operator> permutation : permutations) {
+                long calculatedValue = getCalculatedValue(equation, permutation);
+                if (calculatedValue == equation.finalValue) {
+                    total += equation.finalValue;
+                    break;
+                }
+            }
+        }
+        return total;
+    }
+
+    private static long getCalculatedValue(Equation equation, List<Operator> operators) {
+        long calculatedValue = equation.numbers.getFirst();
+        for (int k = 1; k < equation.numbers.size(); k++) {
+            switch (operators.get(k - 1)) {
+                case ADD ->  calculatedValue += equation.numbers.get(k);
+                case MULTIPLY ->  calculatedValue *= equation.numbers.get(k);
+                case CONCAT -> calculatedValue = Long.parseLong(String.valueOf(calculatedValue) + equation.numbers.get(k));
+            }
+        }
+        return calculatedValue;
+    }
+
     private static List<List<Operator>> getPermutationsRecursive(Operator[] possibleOps, int n, Map<Integer, List<List<Operator>>> state) {
         if (state.containsKey(n)) {
             return state.get(n);
@@ -114,7 +141,8 @@ public class Day7 {
 
     private enum Operator {
         ADD,
-        MULTIPLY
+        MULTIPLY,
+        CONCAT
     }
 
     private static List<Equation> readInput(String filePath) throws IOException {

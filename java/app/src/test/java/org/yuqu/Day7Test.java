@@ -15,5 +15,11 @@ public class Day7Test {
 
         assertEquals(3749, result);
     }
+    @Test
+    void test_part2() throws IOException, URISyntaxException {
+        var result = Day7.part2("src/test/resources/Day7/input.txt");
+
+        assertEquals(11387, result);
+    }
 }
 

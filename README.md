@@ -8,4 +8,5 @@
 - [Day4](./java/app/src/main/java/org/yuqu/Day4/Day4.java)
 - [Day5](./java/app/src/main/java/org/yuqu/Day5/Day5.java)
 - [Day6](./java/app/src/main/java/org/yuqu/Day6/Day6.java)
+- [Day7](./java/app/src/main/java/org/yuqu/Day7/Day7.java)
 

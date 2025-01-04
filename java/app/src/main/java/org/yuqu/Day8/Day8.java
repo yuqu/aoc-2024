@@ -18,13 +18,6 @@ public class Day8 {
         final var input = readInput(filePath);
         var map = mapCharToCoordinatesList(input);
 
-//        char[][] grid = new char[input.length][input.length];
-//        for (int i = 0; i < grid.length; i++) {
-//            for (int j = 0; j < grid.length; j++) {
-//                grid[i][j] = '.';
-//            }
-//        }
-
         Set<Coordinates> antinodes = new HashSet<>();
 
         for (var entry : map.entrySet()) {
@@ -38,12 +31,8 @@ public class Day8 {
             }
         }
 
-//        for (int i = 0; i < grid.length; i++) {
-//            for (int j = 0; j < grid.length; j++) {
-//                System.out.print(grid[i][j]);
-//            }
-//            System.out.print('\n');
-//        }
+        print(input.length, antinodes);
+
         return antinodes.size();
     }
 
@@ -63,25 +52,23 @@ public class Day8 {
                 antinodes.addAll(findAntinodes(combination, input.length, false));
             }
         }
-        char[][] grid = new char[input.length][input.length];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid.length; j++) {
+
+        print(input.length, antinodes);
+
+        return antinodes.size();
+    }
+
+    private static void print(int dimensionSize, Set<Coordinates> antinodes) {
+        for (int i = 0; i < dimensionSize; i++) {
+            for (int j = 0; j < dimensionSize; j++) {
                 if (antinodes.contains(new Coordinates(i, j))) {
-                    grid[i][j] = '#';
+                    System.out.print('#');
                 } else {
-                    grid[i][j] = '.';
-
+                    System.out.print('.');
                 }
-            }
-        }
-
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid.length; j++) {
-                System.out.print(grid[i][j]);
             }
             System.out.print('\n');
         }
-        return antinodes.size();
     }
 
     private static Set<Coordinates> findAntinodes(Set<Coordinates> coorSet, int gridLength, boolean onlyFirst) {
